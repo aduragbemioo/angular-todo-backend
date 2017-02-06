@@ -12,11 +12,13 @@ app.use(cors());
 var db = mongoose.connect(process.env.MONGODB_URL ||'mongodb://localhost/todo');
 
 app.post('/task', function(req, res){
+  console.log('entered backend post');
     var newTask = new Task(req.body);
     newTask.save(function (err, result) {
       if (err) return console.error(err);
         return res.send(result);
     });
+    console.log('saved in the backend');
 });
 
 app.get('/', function(req, res){
@@ -29,7 +31,7 @@ app.get('/task/:id', function(req, res){
   });
 });
 
-app.get('/tasks', function(req, res){       
+app.get('/task', function(req, res){       
   Task.find({},function(err, data){
       return res.json(data);
   });
